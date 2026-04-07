@@ -7,6 +7,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script>
+    // 1. Daftar gambar dan nama yang ingin ditampilkan
+    const profiles = [
+        { img: "gambar1.jpg", name: "Abeyla" },
+        { img: "gambar2.jpg", name: "Cantika" },
+        { img: "gambar3.jpg", name: "Dewi" }
+    ];
+
+    let currentIndex = 0;
+
+    // 2. Fungsi untuk mengganti gambar
+    function nextImage() {
+        // Tambah index, kalau sudah di akhir balik ke 0
+        currentIndex = (currentIndex + 1) % profiles.length;
+
+        // Ambil elemen HTML
+        const imgElement = document.getElementById('profile-img');
+        const nameElement = document.getElementById('profile-name');
+
+        // Ganti sumber gambar dan teks nama
+        imgElement.src = profiles[currentIndex].img;
+        nameElement.innerText = profiles[currentIndex].name;
+        
+        // Efek tambahan: sedikit animasi saat ganti
+        imgElement.style.opacity = 0;
+        setTimeout(() => {
+            imgElement.style.opacity = 1;
+        }, 100);
+    }
+</script>
 
     <div class="window-container">
         <!-- Bagian Atas / Header Window -->
@@ -21,6 +51,17 @@
                 <span class="control-btn x-btn">X</span>
             </div>
         </div>
+<!-- Bagian gambar yang diubah -->
+<div class="image-frame">
+    <img id="profile-img" src="gambar1.jpg" alt="Character Art">
+    <div class="name-overlay" id="profile-name">Abeyla</div>
+</div>
+
+<!-- Bagian tombol yang diubah -->
+<div class="side-nav">
+    <div class="nav-box" onclick="nextImage()">▲</div>
+    <div class="nav-box" onclick="nextImage()">▼</div>
+</div>
 
         <div class="window-content">
             <!-- Area Gambar dan Navigasi Samping -->
