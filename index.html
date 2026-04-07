@@ -3,43 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Card - Abeyla</title>
+    <title>Profile Card</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<script>
-    // 1. Daftar gambar dan nama yang ingin ditampilkan
-    const profiles = [
-        { img: "gambar1.jpg", name: "Abeyla" },
-        { img: "gambar2.jpg", name: "Cantika" },
-        { img: "gambar3.jpg", name: "Dewi" }
-    ];
-
-    let currentIndex = 0;
-
-    // 2. Fungsi untuk mengganti gambar
-    function nextImage() {
-        // Tambah index, kalau sudah di akhir balik ke 0
-        currentIndex = (currentIndex + 1) % profiles.length;
-
-        // Ambil elemen HTML
-        const imgElement = document.getElementById('profile-img');
-        const nameElement = document.getElementById('profile-name');
-
-        // Ganti sumber gambar dan teks nama
-        imgElement.src = profiles[currentIndex].img;
-        nameElement.innerText = profiles[currentIndex].name;
-        
-        // Efek tambahan: sedikit animasi saat ganti
-        imgElement.style.opacity = 0;
-        setTimeout(() => {
-            imgElement.style.opacity = 1;
-        }, 100);
-    }
-</script>
 
     <div class="window-container">
-        <!-- Bagian Atas / Header Window -->
+        <!-- Top Navigation Bar -->
         <div class="window-header">
             <div class="search-bar">
                 <span>SEARCH...</span>
@@ -51,33 +21,23 @@
                 <span class="control-btn x-btn">X</span>
             </div>
         </div>
-<!-- Bagian gambar yang diubah -->
-<div class="image-frame">
-    <img id="profile-img" src="gambar1.jpg" alt="Character Art">
-    <div class="name-overlay" id="profile-name">Abeyla</div>
-</div>
-
-<!-- Bagian tombol yang diubah -->
-<div class="side-nav">
-    <div class="nav-box" onclick="nextImage()">▲</div>
-    <div class="nav-box" onclick="nextImage()">▼</div>
-</div>
 
         <div class="window-content">
-            <!-- Area Gambar dan Navigasi Samping -->
             <div class="main-display">
+                <!-- Tombol Navigasi -->
                 <div class="side-nav">
-                    <div class="nav-box">▲</div>
-                    <div class="nav-box">▼</div>
+                    <button class="nav-box" onclick="prevImage()">▲</button>
+                    <button class="nav-box" onclick="nextImage()">▼</button>
                 </div>
                 
+                <!-- Display Gambar & Nama -->
                 <div class="image-frame">
-                    <img src="https://via.placeholder.com/300x400" alt="Character Art">
-                    <div class="name-overlay">Abeyla</div>
+                    <img id="profile-img" src="gambar1.jpg" alt="Art">
+                    <div class="name-overlay" id="profile-name">Abeyla</div>
                 </div>
             </div>
 
-            <!-- Bagian Bawah / Info -->
+            <!-- Bagian Info Bawah -->
             <div class="footer-section">
                 <div class="resize-icon">↙↗</div>
                 <div class="capsule-container">
@@ -87,11 +47,46 @@
                 </div>
                 <div class="text-info">
                     <p>3 Kata Untuk</p>
-                    <h3>Abeyla</h3>
+                    <h3 id="footer-name">Abeyla</h3>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        // Masukkan link gambar kamu di sini
+        const profiles = [
+            { img: "gambar1.jpg", name: "Abeyla" },
+            { img: "gambar2.jpg", name: "Cantika" },
+            { img: "gambar3.jpg", name: "Dewi" }
+        ];
+
+        let currentIndex = 0;
+
+        function updateProfile() {
+            const imgElement = document.getElementById('profile-img');
+            const nameElement = document.getElementById('profile-name');
+            const footerName = document.getElementById('footer-name');
+
+            imgElement.style.opacity = '0.3';
+            
+            setTimeout(() => {
+                imgElement.src = profiles[currentIndex].img;
+                nameElement.innerText = profiles[currentIndex].name;
+                footerName.innerText = profiles[currentIndex].name;
+                imgElement.style.opacity = '1';
+            }, 150);
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % profiles.length;
+            updateProfile();
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + profiles.length) % profiles.length;
+            updateProfile();
+        }
+    </script>
 </body>
 </html>
